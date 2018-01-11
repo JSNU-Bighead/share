@@ -153,14 +153,15 @@ mustache 标签将会被替换为 data 对象上对应的 msg 属性的值。只
 1. v-if 是真实的条件渲染（是否存在该元素），因为它会确保条件块在切换当中适当地销毁与重建条件块内的事件监听器和子组件。
 2. v-show 只是css切换。 dispaly:none <---> display:block。
 3. v-show 不支持 <template> 元素
+
 ### 列表渲染 v-for
 - 循环数组
 ```html
-    <ul id="example-1">
-    <li v-for="(item,index) in items">
-        {{index}} - {{ item.message }}
-    </li>
-    </ul>
+<ul id="example-1">
+<li v-for="(item,index) in items">
+    {{index}} - {{ item.message }}
+</li>
+</ul>
 ```
 - v-show vs v-if
 ```js
@@ -176,16 +177,16 @@ var example1 = new Vue({
 ```
 ```html
 <!-- 渲染结果 -->
-    0 - Foo
-    1 - Bar
+0 - Foo
+1 - Bar
 ```
 - 循环对象
 ```html
-    <ul id="example-2">
-    <li v-for="(val,key) in obj">
-        {{key}} - {{val}}
-    </li>
-    </ul>
+<ul id="example-2">
+<li v-for="(val,key) in obj">
+    {{key}} - {{val}}
+</li>
+</ul>
 ```
 ```js
 var example1 = new Vue({
@@ -200,64 +201,64 @@ var example1 = new Vue({
 ```
 ```html
 <!-- 渲染结果 -->
-    姓名 - 王楠
-    工号 - 33383
+姓名 - 王楠
+工号 - 33383
 ```
 - 带有 v-if 的 v-for
 ```html
-    <!-- 只显示已完成的事项 -->
-    <li v-for="todo in todos" v-if="!todo.isComplete">
-        {{ todo }}
-    </li>
+<!-- 只显示已完成的事项 -->
+<li v-for="todo in todos" v-if="!todo.isComplete">
+    {{ todo }}
+</li>
 ```
 ```js
-    data:{
-        todos:[
-            {
-                name:'买菜',
-                isComplete:true
-            },
-            {
-                name:'洗菜',
-                isComplete:true
-            },
-            {
-                name:'做饭',
-                isComplete:false
-            },
-        ]
-    }
+data:{
+    todos:[
+        {
+            name:'买菜',
+            isComplete:true
+        },
+        {
+            name:'洗菜',
+            isComplete:true
+        },
+        {
+            name:'做饭',
+            isComplete:false
+        },
+    ]
+}
 ```
 ```html
 <!-- 渲染结果 -->
-    买菜
-    洗菜
+买菜
+洗菜
 ```
 上述代码表示：处于同一节点时，v-for 的优先级高于 v-if，v-if 将分别在循环中的每次迭代上运行，在你只想显示某几项时候很有用。
 
 当然你可能需要满足条件时候采取渲染列表，可以通过v-if 放置于包裹元素上来实现
 ```html
-    <!-- 存在待办显示待办，不存在给出提示 -->
-    <ul v-if="todos.length">
-        <li v-for="todo in todos">
-            {{ todo }}
-        </li>
-    </ul>
-    <p v-else>没有待办事项了!</p>
+<!-- 存在待办显示待办，不存在给出提示 -->
+<ul v-if="todos.length">
+    <li v-for="todo in todos">
+        {{ todo }}
+    </li>
+</ul>
+<p v-else>没有待办事项了!</p>
 ```
 - 其他应用
 ```html
 <!-- 使用 v-for 在整数值范围内迭代 -->
-    <div>
-        <span v-for="n in 10">{{ n }}</span>
-    </div>
+<div>
+    <span v-for="n in 10">{{ n }}</span>
+</div>
 <!-- 在 <template> 上使用 v-for -->
-    <ul>
-        <template v-for="item in items">
-            <li>{{ item.msg }}</li>
-            <li class="divider"></li>
-        </template>
-    </ul>
+<ul>
+    <template v-for="item in items">
+        <li>{{ item.msg }}</li>
+        <li class="divider"></li>
+    </template>
+</ul>
 ```
 ### 表单控件 v-model
 ```html
@@ -311,28 +312,27 @@ var example2 = new Vue({
 在事件处理程序中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
 
 ```html
-    <!-- 停止点击事件冒泡 -->
-    <a @click.stop="doThis"></a>
+<!-- 停止点击事件冒泡 -->
+<a @click.stop="doThis"></a>
 
-    <!-- 提交事件不再重新载入页面 -->
-    <form @submit.prevent="onSubmit"></form>
+<!-- 提交事件不再重新载入页面 -->
+<form @submit.prevent="onSubmit"></form>
 
-    <!-- 修饰符可以链式调用 -->
-    <a @click.stop.prevent="doThat"></a>
+<!-- 修饰符可以链式调用 -->
+<a @click.stop.prevent="doThat"></a>
 ```
 - 按键修饰符
 
 ```html
-    <!-- 按下enter 触发 -->
-    <input v-on:keyup.enter="search">
+<!-- 按下enter 触发 -->
+<input v-on:keyup.enter="search">
     
 ```
-    还有许多不常用的[修饰符](https://vuefe.cn/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6-Event-Modifiers)，同时也可以[自定义修饰符](https://vuefe.cn/v2/api/#keyCodes)，大家可以查阅Vue文档学习。
+还有许多不常用的[修饰符](https://vuefe.cn/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6-Event-Modifiers)，同时也可以[自定义修饰符](https://vuefe.cn/v2/api/#keyCodes)，大家可以查阅Vue文档学习。
 
 ### [生命周期](https://vuefe.cn/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%A4%BA%E6%84%8F%E5%9B%BE)
 
-
-    常用的钩子函数有
+常用的钩子函数有
 - [created](https://vuefe.cn/v2/api/#created)
 
     此时vue实例已经创建，但是DOM树还没有渲染。你可以通过 this 和 . 运算符来访实例中的数据（data）和 方法（methods）。也可以发起异步请求获取当前页面所需的数据。
