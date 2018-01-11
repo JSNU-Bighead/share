@@ -22,7 +22,11 @@
 ```
 mustache 标签将会被替换为 data 对象上对应的 msg 属性的值。只要绑定的数据对象上的 msg 属性发生改变，插值内容也会随之更新。
 
-注意：1. 在Vue实例创建后，只有data里面已存在的属性才是响应式的。2. 在 Vue 模板中的 HTML 属性上使用双花括号语法(mustache)。
+注意：
+
+1. 在Vue实例创建后，只有data里面已存在的属性才是响应式的。
+
+2. 在 Vue 模板中的 HTML 属性上使用双花括号语法(mustache)。
 
 - v-html
 ```html
@@ -36,7 +40,9 @@ mustache 标签将会被替换为 data 对象上对应的 msg 属性的值。只
         }
     })
 ```
-注意：在网站中动态渲染任意的 HTML 是非常危险的，因为这很容易导致网站受到 XSS 攻击。请只对可信内容使用 HTML 插值，绝对不要对用户提供的内容使用 HTML 插值。
+注意：
+
+在网站中动态渲染任意的 HTML 是非常危险的，因为这很容易导致网站受到 XSS 攻击。请只对可信内容使用 HTML 插值，绝对不要对用户提供的内容使用 HTML 插值。
 
 - v-bind 简写 :
 ```html
@@ -86,7 +92,11 @@ mustache 标签将会被替换为 data 对象上对应的 msg 属性的值。只
 ```html
     <div class="static active"></div> 
 ```
-上述语法意味着：1.原生class 和 v-bind:class 最后都会添加到class列表中。2.active 这个 class 的存在与否，取决于 isActive 这个 data 属性的 truthy 值。
+上述语法意味着：
+
+1. 原生class 和 v-bind:class 最后都会添加到class列表中。
+
+2. active 这个 class 的存在与否，取决于 isActive 这个 data 属性的 truthy 值。
 
 ```html
     <div :style="{ color: activeColor, fontSize: fontSize + 'px' }, 'min-height':'100px'"></div>
@@ -140,11 +150,9 @@ mustache 标签将会被替换为 data 对象上对应的 msg 属性的值。只
     </div>
 ```
 - v-show vs v-if
-```js
 1. v-if 是真实的条件渲染（是否存在该元素），因为它会确保条件块在切换当中适当地销毁与重建条件块内的事件监听器和子组件。
 2. v-show 只是css切换。 dispaly:none <---> display:block。
 3. v-show 不支持 <template> 元素
-```
 ### 列表渲染 v-for
 - 循环数组
 ```html
@@ -300,25 +308,25 @@ var example2 = new Vue({
 ```
 - 事件修饰符
 
-    在事件处理程序中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
+在事件处理程序中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
 
-    ```html
-        <!-- 停止点击事件冒泡 -->
-        <a @click.stop="doThis"></a>
+```html
+    <!-- 停止点击事件冒泡 -->
+    <a @click.stop="doThis"></a>
 
-        <!-- 提交事件不再重新载入页面 -->
-        <form @submit.prevent="onSubmit"></form>
+    <!-- 提交事件不再重新载入页面 -->
+    <form @submit.prevent="onSubmit"></form>
 
-        <!-- 修饰符可以链式调用 -->
-        <a @click.stop.prevent="doThat"></a>
-    ```
+    <!-- 修饰符可以链式调用 -->
+    <a @click.stop.prevent="doThat"></a>
+```
 - 按键修饰符
 
-    ```html
-        <!-- 按下enter 触发 -->
-        <input v-on:keyup.enter="search">
-        
-    ```
+```html
+    <!-- 按下enter 触发 -->
+    <input v-on:keyup.enter="search">
+    
+```
     还有许多不常用的[修饰符](https://vuefe.cn/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6-Event-Modifiers)，同时也可以[自定义修饰符](https://vuefe.cn/v2/api/#keyCodes)，大家可以查阅Vue文档学习。
 
 ### [生命周期](https://vuefe.cn/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%A4%BA%E6%84%8F%E5%9B%BE)
@@ -428,3 +436,4 @@ filteredPorfitTree 依赖于 data 中的 hide 和 profitTreeList，当这两个�
 ```
 在这个场景中，使用 watch 选项，可以使我们执行一个限制执行频率的（访问一个 API 的）异步操作，并且不断地设置中间状态，直到我们获取到最终的 answer 数据之后，才真正执行异步操作。而 computed 属性无法实现。
 
+## 作业
