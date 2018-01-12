@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用Vue进行项目开发 - 基础篇</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+        <p v-text="msg"></p>
+        <p>{{msg.split('').reverse().join('')}}</p>
+        <p>{{doc}}</p>
+        <p>{{document}}</p>
+        <p v-html="html"></p>
+        <p :id="id" :abc="abc">hello</p>
+        <p class="static" :class="{a:true,b:false}">class 绑定</p>
+        <p class="static" :class="{a:withA,b:withB}">class 绑定</p>
+        <p class="static" :class="classObj">class 绑定</p>
+        <p class="static" :class="[classObj,extraClass]">class 绑定</p>
+        <p :style="{fontSize:fontSize+'px'}">style 绑定</p>
+        <p :style="{'font-size':fontSize+'px'}">style 绑定</p>
+        <p v-if="exist">v-if 控制</p>
+        <p v-show="exist">v-show 控制</p>
+        <p v-for="(item,index) in items">
+            {{index}} - {{ item.message }}
+        </p>
+        <p v-for="(val,key) in classObj">
+            {{key}} - {{ val }}
+        </p>
+        <p>
+            <span v-for="n in 10">{{ n }}</span>
+        </p>
+        <input type="text" v-model="text">
+        <p>typed：{{text}}</p>
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+        <!-- 不指定 value 返回逻辑值 -->
+        <br>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <p>{{checked}}</p>
+        <!-- 指定 value 返回 value 的值 -->
+        <input type="checkbox" id="checkbox" value="jack" v-model="names">jack
+        <input type="checkbox" id="checkbox" value="tom" v-model="names">tom
+        <input type="checkbox" id="checkbox" value="gaga" v-model="names">gaga
+        <p>{{names}}</p>
+        <!-- 会将输入的首尾空白去掉 -->
+        <input v-model.trim="nowhite" placeholder="edit me">
+        <p>{{nowhite}}</p>
+        <button @click="click">click me</button>
+
+        <button @click="click($event)">click me</button>
+
+        <input type="text" v-model="watched">
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                msg:'Hello Vue',
+                doc:'moe',
+                html:'<img src="http://file.40017.cn/publicfront/goldenkey/error-page-green.png" />',
+                id:'msg',
+                abc:'customer',
+                withA:true,
+                withB:false,
+                classObj:{
+                    a: true,
+                    b: false
+                },
+                extraClass:{
+                    c:true,
+                    d:true
+                },
+                fontSize: 20,
+                exist:true,
+                items: [
+                    { message: 'Foo' },
+                    { message: 'Bar' }
+                ],
+                text:'',
+                message:'',
+                checked:false,
+                names:[],
+                nowhite:'',
+                watched:''
+            },
+            computed:{
+                document: function(){
+                    return this.doc + ' - computed'
+                }
+            },
+            methods:{
+                click(event){
+                    debugger
+                }
+            },
+            watch:{
+                watched: function(newVal,oldVal){
+                    console.log('old',oldVal);
+                    console.log('new',newVal);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

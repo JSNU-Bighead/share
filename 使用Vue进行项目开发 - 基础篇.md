@@ -26,7 +26,7 @@ mustache 标签将会被替换为 data 对象上对应的 msg 属性的值。只
 
 1. 在Vue实例创建后，只有data里面已存在的属性才是响应式的。
 
-2. 在 Vue 模板中的 HTML 属性上使用双花括号语法(mustache)。
+2. 在 Vue 模板中的 HTML 属性上无法使用双花括号语法(mustache)。
 
 - v-html
 ```html
