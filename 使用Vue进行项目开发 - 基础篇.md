@@ -437,3 +437,7 @@ filteredPorfitTree 依赖于 data 中的 hide 和 profitTreeList，当这两个�
 在这个场景中，使用 watch 选项，可以使我们执行一个限制执行频率的（访问一个 API 的）异步操作，并且不断地设置中间状态，直到我们获取到最终的 answer 数据之后，才真正执行异步操作。而 computed 属性无法实现。
 
 ## 作业
+
+- 题目：根据名称搜索用户,并将搜索到结果的明细以table形式展现,没有结果时候给出提示。
+
+- 地址：http://jsonplaceholder.typicode.com/users?q=XX
