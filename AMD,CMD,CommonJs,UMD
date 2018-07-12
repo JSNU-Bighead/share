@@ -1,0 +1,83 @@
+前端组件化开发，为了处理好组件加载，形成了各种规范。
+服务端使用node.js，使得CommonJS被广泛认知。根据CommonJS规范，一个单独的文件就是一个模块。加载模块使用require方法，该方法读取一个文件并执行，最后返回文件内部的
+module.exports。
+//file1.js
+moudle.exports = {
+  a: 1
+};
+
+//file2.js
+var f1 = require('./file1');
+var v = f1.a + 2;
+module.exports ={
+  v: v
+};
+
+可以看出来，CommonJS加载模块是同步的，只有在加载完成后才能执行后续操作。因为像Node.js主要用于服务器的变成，加载的模块文件一版都已经灿在本地硬盘，所以
+加载起来比较块，所以CommonJs的方式比较适用。但如果是浏览器环境,要从服务器加载模块这就必须要异步加载，就有AMD，CMD规范。
+
+1、AMD（Asynchromous Module Definition - 异步模块定义）
+AMD是RequireJS在推广过程中对模块定义的规范化产出，AMD是异步加载模块，推崇依赖前置。
+
+define('module1', ['jquery'], ($) => {
+  //do something...
+});
+代码中依赖被前置，当定义模块（module1）时，就会加载依赖（jquery）
+
+2、CMD（Common Module Definition - 公共模块定义）
+CMD是SeaJS在推广过程中对模块定义的规范化产出，对于模块的依赖，CMD是延迟执行，推崇依赖就近。
+
+define((require, exports, module) => {
+  module.exports = {
+    fun1: () => {
+       var $ = require('jquery');
+       return $('#test');
+    } 
+  };
+});
+如上代码，只有当真正执行到fun1方法时，才回去执行jquery。
+
+同时CMD也是延自CommonJS Modules/2.0规范
+
+UMD（Universal Module Definition - 通用模块定义）
+UMD又是个什么玩意呢？UMD是AMD和CommonJS的一个糅合。AMD是浏览器优先，异步加载；CommonJS是服务器优先，同步加载。
+
+既然要通用，怎么办呢？那就先判断是否支持node.js的模块，存在就使用node.js；再判断是否支持AMD（define是否存在），存在则使用AMD的方式加载。这就是所谓的UMD。
+
+((root, factory) => {
+  if (typeof define === 'function' && define.amd) {
+    //AMD
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    //CommonJS
+    var $ = requie('jquery');
+    module.exports = factory($);
+  } else {
+    //都不是，浏览器全局定义
+    root.testModule = factory(root.jQuery);
+  }
+})(this, ($) => {
+  //do something...  这里是真正的函数体
+});
+由此，想到了平时常用的项目中有webpck，和es6
+ES6中，
+export、export default 均可用于导出常量、函数、文件、模块等。
+你可以在其它文件或模块中通过 import + (常量 | 函数 | 文件 | 模块)名的方式，将其导入。
+在一个文件或模块中，export、import可以有多个，export default仅有一个。
+特别提醒：ES6的模块关键字是js原生的，不要和非js原生的同步/异步模块技术搞混。
+Node中，
+module.exports、exports 的区别：
+module.exports 初始值为一个空对象 {}
+exports 是指向的 module.exports 的引用
+require() 返回的是 module.exports 而不是 exports，
+module.exports才是真正的接口，exports收集到的属性和方法，都赋值给了module.exports，
+有个前提，就是module.exports本身不具备任何属性和方法。
+如果，module.exports已经具备一些属性和方法，那么exports收集来的信息将被忽略。
+特别提醒：Node是实现了同步模块技术，但不要和也实现了同步模块技术的Webpack搞混。
+Webpack中，
+Webpack对于同步/异步模块技术均支持，它实现了同步技术规范里面的异步规范。
+如，webpack的函数require根据参数不同（是否具备回调函数），
+既可以实现同步加载，也可以实现异步加载。
+另外，Webpack也定义了专用的异步加载函数require.ensure， 
+同时，扩展了一个函数require.include来实现预加载功能。
+特别提醒：Webpack模块加载技术一般只是作用在程序打包或者转译时，而不是在系统运行时。
