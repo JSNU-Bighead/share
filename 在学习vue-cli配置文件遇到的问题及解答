@@ -1,0 +1,14 @@
+1. import from 'xxx'是如何找到node_modules目录下的
+因为webpack打包工具是兼容node模块系统的,所以会遵循CommonJS加载规范,
+（1）如果参数字符串以“/”开头，则表示加载的是一个位于绝对路径的模块文件。
+    比如，require('/home/marco/foo.js')将加载/home/marco/foo.js。
+（2）如果参数字符串以“./”开头，则表示加载的是一个位于相对路径（跟当前执行脚本的位置相比）的模块文件。
+    比如，require('./circle')将加载当前脚本同一目录的circle.js。
+（3）如果参数字符串不以“./“或”/“开头，则表示加载的是一个默认提供的核心模块（位于Node的系统安装目录中），
+  或者一个位于各级node_modules目录的已安装模块（全局安装或局部安装）。
+  比如，脚本/home/user/projects/foo.js执行了require('bar.js')命令，Node会依次搜索以下文件。
+    /usr/local/lib/node/bar.js
+    /home/user/projects/node_modules/bar.js
+    /home/user/node_modules/bar.js
+    /home/node_modules/bar.js
+    /node_modules/bar.js
