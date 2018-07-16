@@ -12,3 +12,4 @@
     /home/user/node_modules/bar.js
     /home/node_modules/bar.js
     /node_modules/bar.js
+ 如果文件夹下有package.json,便根据 main 字段找到 js 文件。
