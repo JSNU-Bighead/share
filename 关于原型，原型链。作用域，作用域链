@@ -1,0 +1,40 @@
+引言
+关于这四个基础概念是时候自己理理了，老是容易搞混淆。
+JS中一切都是对象，常见的就是普通对象和函数对象。
+var f1 = function(){}                 var o1 = {}
+function f2(){}                       var o2 = new Object()
+var f3 = mew Function()               var o3 = new f1()
+其中f1,f2,f3都是函数对象，o1,o2都是普通对象，o3既不是函数对象也不是普通对象，那他是什么对象呢？这就要讲到JS的原型了。
+
+原型
+js中创建函数对象f1时候会添加内置些属性其中就包含prototype和__proto__，prototype就是原型对象,存储着f1的方法和属性（继承给后代使用）。
+那是如何继承给后代使用的，就该__proto__和原型链了
+
+原型链
+__proto__存在于普通对象和函数对象中，它的作用就是引用父类的prototype对象。在通过new关键字创建一个对象的时候，会把父类的prototype对象
+赋值给新对象的__proto__,这样就形成了一代代的传承...。而所有对象的最终都继承自Object对象，而Object.__proto__指向null,也就是原型链的终
+点。
+
+所以上例中原型链应该是 o3.__proto__ ->  f1.prototype
+                                      f1.__proto__ -> Object.prototype
+                                                      Object.__proto__ -> null
+Object.prototype.ta = 1
+function fun(){}
+fun.ta //1 
+var y = new fun()
+y.ta //1
+
+原型链就是js实现继承的方式
+                                                      
+作用域
+1.js的作用域是指变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是有定义的。
+2.在javascript中，if、while、for 等代码块不能形成独立的作用域。因此，javascript中没有块级作用域，只有函数作用域。es6引入的let,const
+开始有了块级作用域
+3.如果一个变量没有使用var声明，window便拥有了该属性，因此这个变量的作用域不属于某一个函数体,而是window对象。
+
+作用域链
+当执行一个函数，解析其中变量时候，查找规则是从当前函数开始依次往上查找（包含但前函数体的上一级函数），直到window。
+
+闭包
+函数可以访问函数体外部变量，不能访问函数体内函数中定义的变量。
+外部变量始终保存在计算机内存中
