@@ -16,8 +16,8 @@ __proto__存在于普通对象和函数对象中，它的作用就是引用父�
 点。
 
 所以上例中原型链应该是 o3.__proto__ ->  f1.prototype
-                                      f1.__proto__ -> Object.prototype
-                                                      Object.__proto__ -> null
+                                                  .__proto__ -> Object.prototype
+                                                                                .__proto__ -> null
 Object.prototype.ta = 1
 function fun(){}
 fun.ta //1 
